@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-white font-sans text-navy antialiased; }
+  h1, h2, h3, h4 { @apply font-display tracking-tight text-navy; }
+  section[id] { scroll-margin-top: 4.5rem; }
+  :focus-visible { @apply outline-none ring-2 ring-blue ring-offset-2 ring-offset-white rounded-md; }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-6xl px-5 md:px-8; }
+  .section-y { @apply py-20 md:py-28; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-[15px] font-semibold transition-colors; }
+  .btn-primary { @apply btn bg-navy text-white hover:bg-[#1d2d52]; }
+  .btn-ghost { @apply btn border border-line bg-white text-navy hover:border-navy/40; }
+  .field { @apply w-full rounded-lg border border-line bg-white px-3.5 py-3 text-[15px] text-navy placeholder:text-ink/60 transition-colors hover:border-navy/30; }
+  .field[aria-invalid='true'] { @apply border-[#C0362C]; }
+}
+
+/* The one orchestrated moment: review-desk rows resolve in sequence on load. */
+@keyframes rowIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes scan { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.row-in { opacity: 0; animation: rowIn .45s ease-out forwards; }
+.scan { transform-origin: left; animation: scan 1.1s ease-out forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .row-in { opacity: 1; animation: none; }
+  .scan { animation: none; }
+  * { transition-duration: .01ms !important; }
+}
